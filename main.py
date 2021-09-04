@@ -36,6 +36,7 @@ while True:
         labelId = labelId + 1
         continue
     else:
+        feature = []
         break
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
@@ -65,6 +66,7 @@ while True:
             feature2.append(z[1])
             feature2.append(z[2])
     frameData = feature2
+
     print(clf.predict([frameData]))
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
