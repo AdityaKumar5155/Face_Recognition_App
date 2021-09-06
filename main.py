@@ -1,5 +1,15 @@
-from sklearn import tree
-import cv2
+try:
+    from sklearn import tree
+except:
+    print("sklearn is not installed, Install it by 'python -m pip install sklearn'")
+    input("Press Enter to exit!")
+    exit()
+try:
+    import cv2
+except:
+    print("cv2 is not installed, Install it by 'python -m pip install opencv-python'")
+    input("Press Enter to exit!")
+    exit()
 # from time import sleep
 
 features = []
@@ -12,41 +22,48 @@ frames = 0
 labelId = 0
 feature = []
 
-while True:
-    if frames <= 15:
-        # Capture the video frame
-        # by frame
-        ret, frame = vid.read()
-        cv2.imshow('frame', frame)
-        rows, cols = frame.shape[:2]
+try:
+    while True:
+        if frames <= 15:
+            # Capture the video frame
+            # by frame
+            ret, frame = vid.read()
+            cv2.imshow('frame', frame)
+            rows, cols = frame.shape[:2]
 
-        for i in range(rows):
-            for j in range(cols):
-                k = frame[i, j]
-                feature.append(k[0])
-                feature.append(k[1])
-                feature.append(k[2])
-        features.append(feature)
-        labels.append(labelId)
-        feature = []
-        frames = frames + 1
-    elif labelId < n-1:
-        input("Press Enter to continue!")
-        frames = 0
-        labelId = labelId + 1
-        continue
-    else:
-        feature = [] #Freed some RAM by erasing unnecessary variable
-        break
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-# After the loop release the cap object
-vid.release()
-# Destroy all the windows
-cv2.destroyAllWindows()
+            for i in range(rows):
+                for j in range(cols):
+                    k = frame[i, j]
+                    feature.append(k[0])
+                    feature.append(k[1])
+                    feature.append(k[2])
+            features.append(feature)
+            labels.append(labelId)
+            feature = []
+            frames = frames + 1
+        elif labelId < n - 1:
+            input("Press Enter to continue!")
+            frames = 0
+            labelId = labelId + 1
+            continue
+        else:
+            feature = []  # Freed some RAM by erasing unnecessary variable
+            break
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    # After the loop release the cap object
+    vid.release()
+    # Destroy all the windows
+    cv2.destroyAllWindows()
 
-clf = clf.fit(features, labels)
-print("TRAINING SUCCESSFUL!!!")
+    clf = clf.fit(features, labels)
+    print("TRAINING SUCCESSFUL!!!")
+except:
+    print("Enough RAM not available!")
+    print("Try to reduce the number of scenes and try again!")
+    input("To exit press Enter!")
+    exit()
+
 input("Press Enter to Test Program")
 
 feature2 = []
