@@ -36,7 +36,7 @@ while True:
         labelId = labelId + 1
         continue
     else:
-        feature = []
+        feature = [] #Freed some RAM by erasing unnecessary variables
         break
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
