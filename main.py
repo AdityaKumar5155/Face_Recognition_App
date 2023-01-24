@@ -10,13 +10,15 @@ except:
     print("cv2 is not installed, Install it by 'python -m pip install opencv-python'")
     input("Press Enter to exit!")
     exit()
+import webbrowser
+rick_switch = 0
 # from time import sleep
 
 features = []
 labels = []
 clf = tree.DecisionTreeClassifier()
 n = int(input("How many scenes you want to capture? : "))
-vid = cv2.VideoCapture(0)
+vid = cv2.VideoCapture(1)
 
 frames = 0
 labelId = 0
@@ -24,7 +26,7 @@ feature = []
 
 try:
     while True:
-        if frames <= 15:
+        if frames <= 50:
             # Capture the video frame
             # by frame
             ret, frame = vid.read()
@@ -67,7 +69,7 @@ except:
 input("Press Enter to Test Program")
 
 feature2 = []
-vid2 = cv2.VideoCapture(0)
+vid2 = cv2.VideoCapture(1)
 while True:
     ret, frame2 = vid2.read()
     cv2.imshow('frame', frame2)
@@ -85,6 +87,10 @@ while True:
     frameData = feature2
 
     print(clf.predict([frameData]))
+    
+    # if (clf.predict([frameData]) == 2 and rick_switch == 0):
+    #     webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+    #     rick_switch = 1
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
